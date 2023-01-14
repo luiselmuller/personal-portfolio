@@ -17,6 +17,14 @@ module.exports = {
       boxShadow: {
         'button': '5px 5px 0px 0px rgba(0,0,0,0.78)',
         'button-two': '-5px 5px 0px 0px rgba(0,0,0,0.78)'
+      },
+      keyframes: {
+        rotate: {
+          '0%, 100%': { transform: 'rotate(360deg)' }
+        }
+      },
+      animation: {
+        rotate: 'rotate 1s ease-in-out infinite'
       }
     }
   },

@@ -8,11 +8,11 @@ import linkedin from '$lib/assets/linkedin.svg';
 import mail from '$lib/assets/mail.svg';
 
 export const navigationLinks = [
-    {id: 1, name: 'about me', link: '#'},
-    {id: 2, name: 'skills', link: '#'},
-    {id: 3, name: 'experience', link: '#'},
-    {id: 4, name: 'projects', link: '#'},
-    {id: 5, name: 'contact me', link: '#'},
+    {id: 1, name: 'about me', link: '#', section: 'about-me'},
+    {id: 2, name: 'skills', link: '#', section: 'skills'},
+    {id: 3, name: 'experience', link: '#', section: 'experience'},
+    {id: 4, name: 'projects', link: '#', section: 'projects'},
+    {id: 5, name: 'contact me', link: '#', section: 'contact-me'},
 ]
 
 export const socials = [

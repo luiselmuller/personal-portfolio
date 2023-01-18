@@ -3,7 +3,10 @@
     import rightBlob from '$lib/assets/right-blob.svg'
 
     // Importing "information" arrays
-    import { navigationLinks, socials } from '$lib/info.js'
+    import { navigationLinks, socials, skills, experience, education, projects } from '$lib/info.js'
+
+    // Component imports
+    import ExperienceDrawer from '$lib/components/ExperienceDrawer.svelte'
 
 </script>
 <!-- TODO: Make responsive and animate -->
@@ -50,7 +53,7 @@
 <img alt="Svg blob shape" src={leftBlob} class="absolute left-0 bottom-0">
 
 <h2 class="text-grayish-white text-4xl font-semibold pt-5 px-6 absolute">
-    Luisel Muller
+    Luisel Muller <span class="text-red-400 text-sm">*portfolio currently in development and is not responsive</span>
 </h2>
 
 <main>
@@ -64,8 +67,9 @@
                 My name is <span class="text-primary font-semibold">Luisel</span> and I'm a <span class="font-semibold text-primary">Computer Engineering Student</span>
                 <br>currently on my 4th year of university.
             </p>
-            <button type="button" class="w-52 h-12 bg-primary rounded-lg mt-3 float-right text-background font-semibold text-2xl
-                transition-all duration-200 active:scale-95 hover:bg-primary-hover flex justify-center items-center gap-5 group">
+            <a class="w-52 h-12 bg-primary rounded-lg mt-3 float-right text-background font-semibold text-2xl
+                transition-all duration-200 active:scale-95 hover:bg-primary-hover flex justify-center items-center gap-5 group"
+                href="path-to-file" download="file-name" target="_blank">
                 <!-- TODO:Animate icon on hover -->
                 <!-- Download Icon -->
                 <svg width="35" height="35" viewBox="0 0 47 45" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -79,7 +83,7 @@
                 </svg>
                     
                 Resume
-            </button>
+            </a>
         </article>
 
         <!-- Polygons -->
@@ -108,7 +112,7 @@
     </section>
 
     <!-- About Me -->
-    <section class="h-screen" id="about-me">
+    <section class="h-fit" id="about-me">
         <!-- Top of the section -->
         <div class="flex justify-between">
             <svg width="594" height="217" viewBox="0 0 594 217" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -132,32 +136,96 @@
                 <path d="M875 47.53L889.9 54.514L893.5 70.034L883.2 82.547H866.8L856.5 70.034L860.1 54.514L875 47.53Z" stroke="#32D1894" stroke-width="2"/>
             </svg>
         </div>
-        <!-- Description, Skills, Experience and Education -->
+
+        <!-- Container for all sub-sections (skills, experience, etc...) -->
         <div class="flex flex-col justify-center items-center gap-10 text-grayish-white text-4xl">
-            <p class="mt-16 px-16">
+            <p class="mt-16 px-24">
                 As a computer engineering student with a passion for problem-solving and a desire 
                 to make a difference, I’m always looking for new challenges. I’m eager to apply my 
-                skills to real-world problems and make a positive impact through technology.
+                skills to real-world problems and make a positive impact through technology. One way 
+                I hope to do this is by contributing to the open-source community by developing and 
+                maintaining open-source software and libraries that can benefit the wider developer 
+                community. Additionally, I plan to seek out internships and co-op opportunities where 
+                I can gain hands-on experience and work on projects that have a direct impact on society.
             </p>
 
-            <section class="flex flex-col justify-center items-center mt-10 w-full">
-                <h2 class="uppercase text-primary font-semibold text-5xl">my skills</h2>
-                <!-- Skills -->
-                <div class="w-full h-52 flex justify-center items-center">
-
+            <!-- Skills section -->
+            <section id="skills" class="flex flex-col justify-center items-center gap-5 mt-8 mb-1 w-full">
+                <h2 class="uppercase text-primary font-semibold text-5xl mb-14">my skills</h2>
+                <div class="w-full h-fit flex justify-center items-center gap-10 flex-wrap px-32">
+                    {#each skills as skill(skill.id)}
+                        <div class="w-56 h-12 rounded-xl text-[18px] flex gap-3 justify-center items-center uppercase tracking-widest font-bold
+                            {skill.name === "Firebase" ? "text-black" : "text-white"}"
+                            style="background-color: hsl({skill.color})">
+                            
+                            <img class="text-xs h-[36px] w-[36px]" src={skill.icon} alt="Icon for the {skill.name} skill">
+                            {skill.name}
+                        </div>
+                    {/each}
                 </div>
             </section>
+
+            <!-- Experience section -->
+            <section id="experience" class="flex flex-col justify-center items-center gap-5 mt-10 w-full">
+                <h2 class="uppercase text-primary font-semibold text-5xl mb-14">experience</h2>
+                <div class="w-full h-fit flex flex-col justify-center items-center gap-2">
+                    {#each experience as exp(exp.id)}
+                        <ExperienceDrawer 
+                            workplace={exp.workplace}
+                            jobTitle={exp.jobTitle}
+                            city={exp.city}
+                            startDate={exp.startDate}
+                            endDate={exp.endDate}
+                            tasks={exp.tasks}
+                        />
+                    {/each}
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section id="education" class="flex flex-col justify-center items-center gap-5 mt-10 w-full">
+                <h2 class="uppercase text-primary font-semibold text-5xl mb-14">education</h2>
+                <div class="w-full h-fit flex justify-center items-center gap-32 flex-wrap">
+                    {#each education as edu(edu.id)}
+                        <div class="flex flex-col text-xl bg-secondary-background p-5 rounded-xl gap-6 shadow-xl">
+                            <h2 class="font-semibold text-2xl text-primary-hover">{edu.school}</h2>
+                            <p>{edu.city}</p>
+                            <p>
+                                <span class="font-semibold text-primary-hover">
+                                    {edu.degree}
+                                </span> 
+                                {edu.degreeName}
+                            </p>
+                            <p class="italic">
+                                {edu.graduationDate}
+                            </p>
+                        </div>
+                    {/each}
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects" class="flex flex-col justify-center items-center gap-5 mt-10 w-full mb-14">
+                <h2 class="uppercase text-primary font-semibold text-5xl mb-10">project showcase</h2>
+                <div class="w-full h-fit flex justify-center items-center gap-10">
+                    {#each projects as project(project.id)}
+                        <div class="flex flex-col text-xl bg-secondary-background rounded-xl gap-6 shadow-xl w-80 h-[400px]">
+                            <img src={project.imageLink} alt="{project.title} screenshot" class="h-[150px]
+                            w-full">
+                            <h2>{project.title}</h2>
+                            <a class="underline hover:text-primary" href={project.projectLink}>See the project here</a>
+                        </div>
+                    {/each}
+                </div>
+            </section>
+
         </div>
     </section>
-
-    <!-- Projects -->
-    <section>
-        
-    </section>
-
 </main>
-<footer>
+
+<footer id="contact-me" class="h-72 bg-secondary-background">
     <!-- Contact Me -->
+
 
 </footer>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////// -->

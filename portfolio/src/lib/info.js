@@ -20,10 +20,10 @@ import firebase from '$lib/assets/skill-icons/firebase.svg';
 import sveltekit from '$lib/assets/skill-icons/sveltekit.svg';
 
 // Project images
-import microdash from '$lib/assets/images/microdash.png'
-import arduinoCar from '$lib/assets/images/images/arduino-icon.png'
-import calculator from '$lib/assets/images/images/calculator.jpeg'
-import countdown from '$lib/assets/images/images/countdown.png'
+import microdash from '$lib/images/microdash.jpg'
+import arduinoCar from '$lib/images/arduino.jpg'
+import calculator from '$lib/images/calculator.jpg'
+import countdown from '$lib/images/countdown.jpg'
 
 export const navigationLinks = [
     {

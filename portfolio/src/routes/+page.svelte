@@ -18,7 +18,7 @@
     <ul class="flex flex-col gap-10">
         {#each navigationLinks as nav (nav.id)}
             <li>
-                <a type="button" class="flex justify-start capitalize w-[185px] bg-primary z-50 rounded-lg hover:-translate-y-[4px]
+                <a class="flex justify-start capitalize w-[185px] bg-primary z-50 rounded-lg hover:-translate-y-[4px]
                     hover:-translate-x-[4px] transition-all duration-200 active:translate-x-0 active:translate-y-0 hover:shadow-button
                     active:shadow-none" href="{'#' + nav.section}">
                     {nav.name}
@@ -209,11 +209,13 @@
                 <h2 class="uppercase text-primary font-semibold text-5xl mb-10">project showcase</h2>
                 <div class="w-full h-fit flex justify-center items-center gap-10">
                     {#each projects as project(project.id)}
-                        <div class="flex flex-col text-xl bg-secondary-background rounded-xl gap-6 shadow-xl w-80 h-[400px]">
+                        <div class="flex flex-col text-xl bg-secondary-background rounded-xl gap-6 shadow-xl w-80 h-[400px]
+                        items-center">
                             <img src={project.imageLink} alt="{project.title} screenshot" class="h-[150px]
-                            w-full">
+                            w-full rounded-t-xl">
                             <h2>{project.title}</h2>
-                            <a class="underline hover:text-primary" href={project.projectLink}>See the project here</a>
+                            <a target="_blank" class="underline hover:text-primary" href={project.projectLink}
+                                rel="noreferrer noopener">See the project here</a>
                         </div>
                     {/each}
                 </div>

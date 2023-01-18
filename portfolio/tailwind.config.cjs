@@ -7,7 +7,7 @@ module.exports = {
       colors: {
         'background': 'hsl(206,100%,6%)',
         'secondary-background': 'hsl(206,70%,6%)',
-        'primary': 'hsl(153,63%,51%)',
+        'primary': 'hsl(152.83,63.35%,50.78%)',
         'primary-hover': 'hsl(153,63%,70%)',
         'secondary': '',
         'grayish-white': 'hsl(100,10%,80%)',

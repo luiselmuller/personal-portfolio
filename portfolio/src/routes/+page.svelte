@@ -7,6 +7,27 @@
 
     // Component imports
     import ExperienceDrawer from '$lib/components/ExperienceDrawer.svelte'
+  import { onMount } from 'svelte';
+
+    let backToTopDisp = false;
+
+    const scrollFunc = () => {
+        if (document.body.scrollTop > 900 || document.documentElement.scrollTop > 900) {
+            backToTopDisp = true;
+        }
+        else {
+            backToTopDisp = false;
+        }
+    }
+
+    const backTop = () => {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+
+    onMount(() => {
+        window.onscroll = function() {scrollFunc()};
+    })
 
 </script>
 <!-- TODO: Make responsive and animate -->
@@ -18,7 +39,7 @@
     <ul class="flex flex-col gap-10">
         {#each navigationLinks as nav (nav.id)}
             <li>
-                <a class="flex justify-start capitalize w-[185px] bg-primary z-50 rounded-lg hover:-translate-y-[4px]
+                <a class="flex justify-start capitalize w-[185px] z-50 rounded-lg hover:-translate-y-[4px]
                     hover:-translate-x-[4px] transition-all duration-200 active:translate-x-0 active:translate-y-0 hover:shadow-button
                     active:shadow-none" href="{'#' + nav.section}">
                     {nav.name}
@@ -57,6 +78,12 @@
 </h2>
 
 <main>
+    <!-- Back to top button -->
+    <button type="button" class="z-50 fixed bottom-0 right-0 mr-10 mb-10 p-3 bg-primary hover:bg-primary-hover rounded-full
+        {backToTopDisp ? '' : 'hidden'}" on:click={() => backTop()}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>
+    </button>
+
     <!-- Landing page -->
     <section class="h-screen text-grayish-white">
         <article class="w-fit h-fit translate-x-[300px] translate-y-[190px]">
@@ -150,7 +177,7 @@
             </p>
 
             <!-- Skills section -->
-            <section id="skills" class="flex flex-col justify-center items-center gap-5 mt-8 mb-1 w-full">
+            <section id="skills" class="flex flex-col justify-center items-center gap-5 mt-8 w-full">
                 <h2 class="uppercase text-primary font-semibold text-5xl mb-14">my skills</h2>
                 <div class="w-full h-fit flex justify-center items-center gap-10 flex-wrap px-32">
                     {#each skills as skill(skill.id)}
@@ -187,7 +214,7 @@
                 <h2 class="uppercase text-primary font-semibold text-5xl mb-14">education</h2>
                 <div class="w-full h-fit flex justify-center items-center gap-32 flex-wrap">
                     {#each education as edu(edu.id)}
-                        <div class="flex flex-col text-xl bg-secondary-background p-5 rounded-xl gap-6 shadow-xl">
+                        <div class="flex flex-col text-xl bg-secondary-background p-5 rounded-xl gap-6 shadow-xl min-w-[550px]">
                             <h2 class="font-semibold text-2xl text-primary-hover">{edu.school}</h2>
                             <p>{edu.city}</p>
                             <p>
@@ -206,29 +233,75 @@
 
             <!-- Projects Section -->
             <section id="projects" class="flex flex-col justify-center items-center gap-5 mt-10 w-full mb-14">
-                <h2 class="uppercase text-primary font-semibold text-5xl mb-10">project showcase</h2>
-                <div class="w-full h-fit flex justify-center items-center gap-10">
+                <h2 class="uppercase text-primary font-semibold text-5xl mb-14">project showcase</h2>
+                <div class="w-full h-fit flex justify-center items-center gap-10 flex-wrap">
                     {#each projects as project(project.id)}
                         <div class="flex flex-col text-xl bg-secondary-background rounded-xl gap-6 shadow-xl w-80 h-[400px]
                         items-center">
-                            <img src={project.imageLink} alt="{project.title} screenshot" class="h-[150px]
+                            <img src={project.imageLink} alt="{project.title} screenshot" class="h-[180px]
                             w-full rounded-t-xl">
-                            <h2>{project.title}</h2>
-                            <a target="_blank" class="underline hover:text-primary" href={project.projectLink}
+                            <h2 class="font-semibold">{project.title}</h2>
+                            <a target="_blank" class="underline italic hover:text-primary-hover text-primary" href={project.projectLink}
                                 rel="noreferrer noopener">See the project here</a>
+
+                            <!-- Categories -->
+                            <div class="flex flex-wrap flex-row gap-2 justify-center items-center">
+                                {#each project.categories as cat}
+                                    <div class="text-[16px] border-[1px] border-grayish-white rounded-2xl px-2">
+                                        {cat}
+                                    </div>
+                                {/each}
+                            </div>
                         </div>
                     {/each}
                 </div>
+
+                <a class="text-xl text-primary font-semibold underline rounded-md p-2 cursor-pointer hover:text-primary-hover" rel="noreferrer noopener"
+                    target="_blank" href="https://github.com/luiselmuller">
+                    See more on my GitHub
+                </a>
             </section>
 
         </div>
     </section>
 </main>
 
-<footer id="contact-me" class="h-72 bg-secondary-background">
+<footer id="contact-me" class="h-fit bg-secondary-background pt-14">
     <!-- Contact Me -->
+    <article class="flex flex-col justify-center items-center h-full w-full p-4 gap-4">
+        <div class="flex justify-center items-center w-full">
+           <form action="https://formsubmit.co/luiselmuller@gmail.com" method="POST"
+                class="flex justify-center items-center flex-col gap-2 w-full mb-16">
+                <h2 class="uppercase text-3xl text-primary font-semibold">contact me</h2>
+                <input type="text" name="name" placeholder="Name" required class="w-[500px] h-10 p-5 rounded-lg bg-gray-900 text-gray-400 
+                    border-[1px] border-gray-400">
+                <input type="email" name="email" placeholder="Email" required class="w-[500px] h-10 p-5 rounded-lg bg-gray-900 text-gray-400 
+                    border-[1px] border-gray-400">
+                <input type="text" name="_subject" placeholder="Subject" required class="w-[500px] h-10 p-5 rounded-lg bg-gray-900 text-gray-400 
+                    border-[1px] border-gray-400">
 
+                <!-- <input type="hidden" name="_captcha" value="false"> -->
+                <input type="text" name="_honey" style="display:none">
 
+                <textarea placeholder="Your Message" class="form-control w-[500px] p-5 rounded-lg bg-gray-900 text-gray-400 
+                    border-[1px] border-gray-400" name="message" rows="8" required>
+                </textarea>
+                
+                <button type="submit" class="bg-primary hover:bg-primary-hover text-background h-10 w-[500px] rounded-lg hover:scale-105 active:scale-100
+                    transition-all duration-200 ease-in-out font-bold uppercase text-lg">
+                    Send
+                </button>
+           </form>
+
+           <div class="w-full mb-14">
+            <svg id="visual" viewBox="0 -45 940 690" width="960" height="540" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"><g><g transform="translate(615 218)"><path d="M0 -115.5L100 -57.7L100 57.7L0 115.5L-100 57.7L-100 -57.7Z" fill="none" stroke="#32d189" stroke-width="2"></path></g><g transform="translate(437 529)"><path d="M0 -114L98.7 -57L98.7 57L0 114L-98.7 57L-98.7 -57Z" fill="none" stroke="#32d189" stroke-width="2"></path></g><g transform="translate(908 90)"><path d="M0 -28L24.2 -14L24.2 14L0 28L-24.2 14L-24.2 -14Z" fill="none" stroke="#32d189" stroke-width="2"></path></g><g transform="translate(167 274)"><path d="M0 -106L91.8 -53L91.8 53L0 106L-91.8 53L-91.8 -53Z" stroke="#32d189" fill="none" stroke-width="2"></path></g><g transform="translate(8 40)"><path d="M0 -84L72.7 -42L72.7 42L0 84L-72.7 42L-72.7 -42Z" stroke="#32d189" fill="none" stroke-width="2"></path></g><g transform="translate(924 523)"><path d="M0 -89L77.1 -44.5L77.1 44.5L0 89L-77.1 44.5L-77.1 -44.5Z" stroke="#32d189" fill="none" stroke-width="2"></path></g></g></svg>
+           </div>
+        </div>
+        <div class="flex justify-center items-center text-grayish-white">
+            <span>&#169;</span>
+            <p>2023 Luisel Muller</p>
+        </div>
+    </article>
 </footer>
 <!-- ////////////////////////////////////////////////////////////////////////////////////////////////////// -->
 

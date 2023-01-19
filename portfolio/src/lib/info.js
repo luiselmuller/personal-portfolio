@@ -4,7 +4,6 @@
 // Socials icon imports
 import github from '$lib/assets/github.svg';
 import linkedin from '$lib/assets/linkedin.svg';
-import mail from '$lib/assets/mail.svg';
 
 // SKill icon imports
 import tailwind from '$lib/assets/skill-icons/tailwindcss.svg';
@@ -74,9 +73,9 @@ export const socials = [
     },
     {
         id: 3, 
-        name: 'Email', 
-        svg: mail, 
-        link: 'mailto:luiselmuller@gmail.com'
+        name: '', 
+        svg: "", 
+        link: ''
     },
 ]
 
@@ -157,17 +156,13 @@ export const experience = [
         city: "Carolina, Puerto Rico", 
         startDate: "0/0/00", 
         endDate: "0/0/00",
-        tasks: ["• task1", "• task2", "• task3"]
+        tasks: [
+            "• Participated in designing electronic circuits in physical prototypes as well as simulations and PCB software (Eagle PCB).", 
+            "• Developed code for certain sensors to work with an Arduino.",
+            "• Worked on enhancing the user experience and functionality of the product."
+        ]
     },
-    {
-        id: 2,
-        workplace: "Oasis Synergistic Technologies", 
-        jobTitle: "Agrotechnology Intern", 
-        city: "Carolina, Puerto Rico", 
-        startDate: "0/0/00", 
-        endDate: "0/0/00",
-        tasks: ["• task1", "• task2", "• task3"]
-    },
+
 ]
 
 export const education = [
@@ -195,23 +190,27 @@ export const projects = [
         title: "Microcontroller Dashboard",
         projectLink: "https://github.com/luiselmuller/uni-project-microcontroller-dashboard",
         imageLink: microdash,
+        categories: ["React", "ESP32", "Firestore", "Netlify", "MaterialUI", "Electronics"]
     },
     {
         id:2,
         title: "Flip Countdown Timer",
         projectLink: "https://www.frontendmentor.io/solutions/launch-countdown-timer-QYzC7xOWva",
         imageLink: countdown,
+        categories: ["SvelteKit", "TailwindCSS", "Vercel", "CSS"]
     },
     {
         id:3,
         title: "Calculator With Color Themes",
         projectLink: "https://www.frontendmentor.io/solutions/calculator-app-zgwvjVN7Qv",
         imageLink: calculator,
+        categories: ["SvelteKit", "TailwindCSS", "Javascript", "Vercel"]
     },
     {
         id:4,
         title: "Arduino Bluetooth Controlled Car",
         projectLink: "https://github.com/luiselmuller/ArduinoBTControlledCar",
         imageLink: arduinoCar,
+        categories: ["Arduino", "MITAppInventor", "Bluetooth", "Electronics"]
     }
 ]
